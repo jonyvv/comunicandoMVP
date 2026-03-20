@@ -26,7 +26,7 @@ services:
     ports:
       - "8002:80"
     environment:
-      - GEMINI_API_KEY=AIzaSyAXr9mfwOeiavSdVC0KRin20REUHFessrg  # Reemplaza con la clave real si es necesaria
+      - GEMINI_API_KEY=  # Reemplaza con la clave real
     volumes:
       - ./shared_uploads:/app/uploads
     networks:
