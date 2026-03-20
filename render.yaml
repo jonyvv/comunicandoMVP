@@ -1,0 +1,51 @@
+services:
+  # 1. API GATEWAY
+  - type: web
+    name: api-gateway
+    env: docker
+    dockerContext: ./api-gateway
+    dockerfilePath: ./api-gateway/Dockerfile
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8000
+
+  # 2. SERVICIO SEGURIDAD
+  - type: web
+    name: servicio-seguridad
+    env: docker
+    dockerContext: ./servicio-seguridad
+    dockerfilePath: ./servicio-seguridad/Dockerfile
+    plan: free
+
+  # 3. SERVICIO IA (RECONOCIMIENTO SEÑAS)
+  - type: web
+    name: servicio-reconocimiento-senas
+    env: docker
+    dockerContext: ./servicio-reconocimiento-senas
+    dockerfilePath: ./servicio-reconocimiento-senas/Dockerfile
+    plan: free
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+
+  # 4. BACKEND LOGIN (SQLite)
+  - type: web
+    name: backend-login
+    env: docker
+    dockerContext: ./login-jwt
+    dockerfilePath: ./login-jwt/Dockerfile
+    plan: free
+    envVars:
+      - key: JWT_SECRET
+        value: "demo_secret_123"
+      - key: PORT
+        value: 5000
+
+  # 5. FRONTEND UI
+  - type: web
+    name: frontend-ui
+    env: docker
+    dockerContext: ./frontend
+    dockerfilePath: ./frontend/Dockerfile
+    plan: free

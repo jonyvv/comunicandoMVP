@@ -1,0 +1,214 @@
+/* ================ Paleta y estilos base ================== */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e3a8a;
+  --primary-hover: #1d4ed8;
+  --background: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --input-bg: #334155;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --radius: 12px;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+/* =============== Títulos y contenedores ============== */
+h1 {
+  color: var(--text-primary);
+  font-size: 2.4rem;
+  margin-bottom: 35px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+.container,
+.login-container {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 25px var(--shadow);
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+h2 {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  font-size: 1.3rem;
+}
+
+/* =============== Login ================== */
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  display: block;
+  background-color: var(--input-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  width: calc(100% - 40px);
+  margin: 10px auto;
+  transition: all 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+#loginMsg {
+  color: #f87171;
+  margin-top: 10px;
+}
+
+/* =============== Inputs y botones ================ */
+input[type="file"] {
+  display: block;
+  margin: 20px auto;
+  background-color: var(--input-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  width: calc(100% - 40px);
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="file"]:hover {
+  border-color: var(--primary);
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+/* Botones */
+button,
+input[type="file"]::file-selector-button {
+  background-color: var(--primary);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius);
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  margin: 15px auto;
+  display: inline-block;
+}
+
+button:hover,
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Botón de logout */
+.logout {
+  background-color: #e11d48;
+}
+.logout:hover {
+  background-color: #be123c;
+  box-shadow: 0 0 12px rgba(225, 29, 72, 0.3);
+}
+
+/* =================== Imagen y resultados =================== */
+.image-preview {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.image-preview h3 {
+  color: var(--text-secondary);
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+#previewImage {
+  width: 300px;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+#previewImage:hover {
+  transform: scale(1.02);
+}
+
+/* ==================== Salida de traducción ================== */
+#output {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: var(--primary-dark);
+  border-radius: var(--radius);
+  border: 1px solid var(--primary);
+  color: var(--text-primary);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+#output h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-size: 1.4em;
+}
+
+.translation-result {
+  font-size: 2em;
+  font-weight: bold;
+  color: #38bdf8;
+  display: block;
+  margin-top: 10px;
+  animation: fadeIn 0.6s ease;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================ Responsividad ================= */
+@media (max-width: 768px) {
+  .container, .login-container {
+    padding: 25px;
+  }
+
+  #previewImage {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  #previewImage {
+    max-width: 180px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}

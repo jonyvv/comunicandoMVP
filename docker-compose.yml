@@ -1,0 +1,77 @@
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - my-network
+  servicio-seguridad:
+    build:
+      context: ./servicio-seguridad
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    volumes:
+      - ./shared_uploads:/app/uploads
+    user: "root"
+    networks:
+      - my-network
+  
+  servicio-reconocimiento-senas:  # Cambiado de "servicio-ia"
+    build:
+      context: ./servicio-reconocimiento-senas  # Asegúrate de que este directorio exista
+      dockerfile: Dockerfile
+    ports:
+      - "8002:80"
+    environment:
+      - GEMINI_API_KEY=AIzaSyAXr9mfwOeiavSdVC0KRin20REUHFessrg  # Reemplaza con la clave real si es necesaria
+    volumes:
+      - ./shared_uploads:/app/uploads
+    networks:
+      - my-network
+  backend:
+    build: 
+      context: ./login-jwt
+      dockerfile: Dockerfile
+    container_name: login_backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./login-jwt/backend:/app/backend
+      - ./login-jwt/db:/app/db
+    environment:
+      
+      - DATABASE_URL=/app/db/app.db
+    depends_on:
+      - sqlite
+    networks:
+      - my-network
+  sqlite:
+    image: python:3.12-slim
+    container_name: sqlite_db
+    networks:
+      - my-network
+    volumes:
+      - ./login-jwt/db:/db
+      - ./login-jwt/init:/init
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      "apt-get update && apt-get install -y sqlite3 && \
+      if [ ! -f /db/app.db ]; then
+        sqlite3 /db/app.db < /init/init.sql;
+      fi && \
+      tail -f /dev/null"
+  frontend-ui:
+    build: ./frontend
+    container_name: mvc_frontend_ui
+    ports:
+      - "3000:80"
+    networks:
+      - my-network
+networks:
+  my-network:
+volumes:
+  uploads:
+  shared_uploads:

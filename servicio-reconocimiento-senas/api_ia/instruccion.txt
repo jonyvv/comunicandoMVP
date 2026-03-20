@@ -1,0 +1,9 @@
+en la terminal del proyecto correr 
+pip install google-genai 
+esto solo una vez para isntalar el entorno de gemini 
+Luego correr el siguiente comando 
+$env:GEMINI_API_KEY="AIzaSyDNJQR5ybZzf_jHqOkdta_SupTBfUgQ5ZQ"
+esa es la clave apikey 
+para correr el scrpt de pthon y probar 
+python prueba-api.py
+obviamente tener python instalado 

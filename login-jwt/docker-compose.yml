@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  # Tu base de datos
+  sqlite:
+    image: nouchka/sqlite3
+    container_name: sqlite_db
+    entrypoint: ["/bin/sh", "-c"]
+    volumes:
+      - ./db:/db
+      - ./init:/init
+    command: >
+      "if [ ! -f /db/app.db ]; then
+        sqlite3 /db/app.db < /init/init.sql;
+      fi
+      && tail -f /dev/null"
+
+  # Tu Backend de Python
+  backend:
+    build: .
+    container_name: login_backend
+    ports:
+      - "5000:5000" # Mapea el puerto de Flask/FastAPI
+    volumes:
+      - .:/app
+      - ./db:/app/db # Comparten la misma carpeta de BD
+    environment:
+      - DATABASE_URL=/db/app.db
+    depends_on:
+      - sqlite
