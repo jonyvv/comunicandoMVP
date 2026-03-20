@@ -19,14 +19,14 @@ services:
     networks:
       - my-network
   
-  servicio-reconocimiento-senas:  # Cambiado de "servicio-ia"
+  servicio-reconocimiento-senas: 
     build:
-      context: ./servicio-reconocimiento-senas  # Asegúrate de que este directorio exista
+      context: ./servicio-reconocimiento-senas  
       dockerfile: Dockerfile
     ports:
       - "8002:80"
     environment:
-      - GEMINI_API_KEY=  # Reemplaza con la clave real
+      - GEMINI_API_KEY=  
     volumes:
       - ./shared_uploads:/app/uploads
     networks:
